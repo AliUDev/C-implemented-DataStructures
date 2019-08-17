@@ -27,107 +27,106 @@ struct List {
 	unsigned int size;
 };
 
-struct List list; // create my list 
 
-void initList() { //initializes linked list
-	list.head = NULL;
-	list.tail = NULL;
-	list.size = 0;
+void initList(struct List *list) { //initializes linked list
+	list->head = NULL;
+	list->tail = NULL;
+	list->size = 0;
 }
 
-void addFirst(const char *str) {
+void addFirst(struct List *list, const char *str) {
 	struct Node *newNode;
 	newNode = (struct Node *)malloc(sizeof(struct Node)); //reserve memory on the heap
 
 	if (newNode != NULL) { // check if malloc failed
-		if (list.head == NULL) { 
-			list.head = newNode;
-			list.tail = newNode;
+		if (list->head == NULL) { 
+			list->head = newNode;
+			list->tail = newNode;
 			newNode->next = NULL;
 			strcpy(newNode->name, str);
-			list.size++;
+			list->size++;
 		}else {
-			newNode->next = list.head;
-			list.head = newNode;
+			newNode->next = list->head;
+			list->head = newNode;
 			strcpy(newNode->name, str);
-			list.size++;
+			list->size++;
 		}
 	}
 }
 
-void addLast(const char *str) {
+void addLast(struct List *list, const char *str) {
 	struct Node *newNode;
 
-	if (list.head == NULL) {
-		addFirst(str);
+	if (list->head == NULL) {
+		addFirst(list, str);
 	}else {
 		newNode = (struct Node *)malloc(sizeof(struct Node)); //reserve memory on the heap
 		if (newNode != NULL) { // check if malloc failed
-			list.tail->next = newNode;
-			list.tail = newNode;
+			list->tail->next = newNode;
+			list->tail = newNode;
 			newNode->next = NULL;
 			strcpy(newNode->name, str);
-			list.size++;
+			list->size++;
 		}
 	}
 }
 
-struct Node *popFirst() {
+struct Node *popFirst(struct List *list) {
 	struct Node *retVal;
 
-	if (list.head == NULL) {
+	if (list->head == NULL) {
 		retVal = NULL;
-	}else if (list.head == list.tail) {
-		retVal = list.head;
-		list.head = list.tail = NULL;
-		list.size--;
+	}else if (list->head == list->tail) {
+		retVal = list->head;
+		list->head = list->tail = NULL;
+		list->size--;
 	}else {
-		retVal = list.head;
-		list.head = list.head->next;
-		list.size--;
+		retVal = list->head;
+		list->head = list->head->next;
+		list->size--;
 	}
 
 	return retVal;
 }
 
-struct Node *popLast() {
+struct Node *popLast(struct List *list) {
 
 	struct Node *retVal;
 	struct Node *curr;
 	struct Node *prev;
 
-	if (list.head == NULL) {
+	if (list->head == NULL) {
 		retVal = NULL;
-	}else if (list.head == list.tail) {
-		retVal = popFirst();
+	}else if (list->head == list->tail) {
+		retVal = popFirst(list);
 	}else {
-		curr = list.head;
-		prev = list.head;
+		curr = list->head;
+		prev = list->head;
 
 		while (curr->next != NULL) { //traverse our list till the end
 			prev = curr;
 			curr = curr->next;
 		}
 
-		list.tail = prev;
-		list.tail->next = NULL;
+		list->tail = prev;
+		list->tail->next = NULL;
 		retVal = curr;
-		list.size--;
+		list->size--;
 	}
 
 	return retVal;
 }
 
-struct Node *find(const char *name) {
+struct Node *find(struct List *list, const char *name) {
 	struct Node *retVal;
 	struct Node *curr;
 	unsigned int flag = 0;
 
-	if (list.head == NULL) {
+	if (list->head == NULL) {
 		retVal = NULL;
 	}else {
-		curr = list.head;
-		retVal = list.head;
+		curr = list->head;
+		retVal = list->head;
 
 		while (curr != NULL && flag == 0) {
 			if (strcmp(curr->name, name) == 0) {
@@ -144,23 +143,23 @@ struct Node *find(const char *name) {
 	return retVal;
 }
 
-struct Node *pop(const char *name) { // pop by value
+struct Node *pop(struct List *list, const char *name) { // pop by value
 	struct Node *retVal;
 	struct Node *curr;
 	struct Node *prev;
 	unsigned int flag = 0;
 
-	if (list.head == NULL) {
+	if (list->head == NULL) {
 		retVal = NULL;
-	}else if (list.head == list.tail) {
-		if (strcmp(list.head->name, name) == 0) {
-			retVal = popFirst();
-			list.size--;
+	}else if (list->head == list->tail) {
+		if (strcmp(list->head->name, name) == 0) {
+			retVal = popFirst(list);
+			list->size--;
 		}else
 			retVal = NULL;
 	}else {
 		// traverse the list
-		curr = list.head;
+		curr = list->head;
 		prev = NULL;
 		retVal = NULL;
 
@@ -182,7 +181,7 @@ struct Node *pop(const char *name) { // pop by value
 				prev->next = curr->next;
 				retVal = curr;
 			}
-			list.size--;
+			list->size--;
 		}else
 			retVal = NULL;
 	}
@@ -201,10 +200,10 @@ void display(struct List *mylist) {
 	}
 }
 
-struct Node *peekFirst() {
-	return list.head;
+struct Node *peekFirst(struct List *list) {
+	return list->head;
 }
 
-struct Node *peekLast() {
-	return list.tail;
+struct Node *peekLast(struct List *list) {
+	return list->tail;
 }

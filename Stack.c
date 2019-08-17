@@ -1,22 +1,28 @@
 /* 
-This is a stack that is going to be implemented using my Linked List implementation
+This is a stack of names/strings that is going to be implemented using my Linked List implementation
 */
 
 #include "LinkedList.h"
+//linked list operations
+void initList(struct List *list);
+void addFirst(struct List *list, const char *str);
+void addLast(struct List *list, const char *str);
+struct Node *popFirst(struct List *list);
+struct Node *popLast(struct List *list);
+struct Node *find(struct List *list, const char *name);
+struct Node *pop(struct List *list, const char *name);
+void display(struct List *mylist);
+struct Node *peekFirst(struct List *list);
+struct Node *peekLast(struct List *list);
+
+struct Stack {
+	struct List storage;
+	unsigned int size;
+};
+
+
+
 
 int main() {
-	struct Node *temp;
-	initList();
-
-	addLast("Element 1");
-	addLast("Element 2");
-	addLast("Element 3");
-	addLast("Element 4");
-	addLast("Element 5");
-	addLast("Element 6");
-	addLast("Element 7");
-	addLast("Element 8");
-	temp = peekLast();
-	display(&list);
 	return 0;
 }

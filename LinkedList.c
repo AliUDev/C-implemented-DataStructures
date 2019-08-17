@@ -201,6 +201,13 @@ void display(struct List *mylist) {
 	}
 }
 
+struct Node *peekFirst() {
+	return list.head;
+}
+
+struct Node *peekLast() {
+	return list.tail;
+}
 
 
 int main(){
@@ -215,6 +222,7 @@ int main(){
 	addLast("Element 6");
 	addLast("Element 7");
 	addLast("Element 8");
+	temp = peekLast();
 	display(&list);
 	return 0;
 }

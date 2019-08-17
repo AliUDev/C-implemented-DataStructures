@@ -15,9 +15,17 @@ Working in the middle -> most trivial
 #include <stdio.h>	
 #include <string.h> // contents of our list is string
 #include <stdlib.h> // needed for malloc
-#include "LList.h"
 
+struct Node {
+	char name[20];
+	struct Node *next;
+};
 
+struct List {
+	struct Node *head;
+	struct Node *tail;
+	unsigned int size;
+};
 
 
 void initList(struct List *list) { //initializes linked list
@@ -128,6 +136,7 @@ struct Node *find(struct List *list, const char *name) {
 			}else
 				curr = curr->next;
 		}
+		
 		if (flag == 0)
 			retVal = NULL;
 	}

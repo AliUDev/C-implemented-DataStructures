@@ -7,11 +7,11 @@ This is a stack of names/strings that is going to be implemented using my Linked
 void initList(struct List *list);
 void addFirst(struct List *list, const char *str);
 void addLast(struct List *list, const char *str);
+void display(struct List *mylist);
 struct Node *popFirst(struct List *list);
 struct Node *popLast(struct List *list);
 struct Node *find(struct List *list, const char *name);
 struct Node *pop(struct List *list, const char *name);
-void display(struct List *mylist);
 struct Node *peekFirst(struct List *list);
 struct Node *peekLast(struct List *list);
 
@@ -20,9 +20,41 @@ struct Stack {
 	unsigned int size;
 };
 
+void initStack(struct Stack *stack) {
+	initList(&stack->storage);
+	stack->size = 0;
+}
 
+short empty(struct Stack *stack) {
+	return stack->size == 0;
+}
 
+unsigned int size(struct Stack *stack) {
+	return stack->size;
+}
 
+void pushStack(struct Stack *stack, const char *arg) {
+	addFirst(&stack->storage, arg);
+}
+
+void popStack(struct Stack *stack) {
+	popFirst(&stack->storage);
+}
+
+void displayStack(struct Stack *stack) {
+	displayList(&stack->storage);
+}
 int main() {
+	struct Stack stack;
+	initStack(&stack);
+	pushStack(&stack, "Bob");
+	pushStack(&stack, "Ali");
+	pushStack(&stack, "James");
+	pushStack(&stack, "Son");
+	pushStack(&stack, "Master");
+	pushStack(&stack, "I am Groot");
+	pushStack(&stack, "This name long");
+	popStack(&stack);
+	displayStack(&stack);
 	return 0;
 }

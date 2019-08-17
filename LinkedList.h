@@ -174,9 +174,9 @@ struct Node *pop(struct List *list, const char *name) { // pop by value
 
 		if (flag == 1) {
 			if (prev == NULL) // start
-				retVal = popFirst();
+				retVal = popFirst(list);
 			else if (curr == NULL) // end
-				retVal = popLast();
+				retVal = popLast(list);
 			else {
 				prev->next = curr->next;
 				retVal = curr;
@@ -188,10 +188,8 @@ struct Node *pop(struct List *list, const char *name) { // pop by value
 	return retVal;
 }
 
-void display(struct List *mylist) {
+void displayList(struct List *mylist) {
 	struct Node *temp;
-
-	printf("The size of my list is: %d\n", mylist->size);
 	temp = mylist->head;
 
 	while (temp != NULL) {

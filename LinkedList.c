@@ -189,7 +189,7 @@ struct Node *pop(const char *name) { // pop by value
 	return retVal;
 }
 
-display(struct List *mylist) {
+void display(struct List *mylist) {
 	struct Node *temp;
 
 	printf("The size of my list is: %d\n", mylist->size);
@@ -200,6 +200,8 @@ display(struct List *mylist) {
 		temp = temp->next;
 	}
 }
+
+
 
 int main(){
 	struct Node *temp;
@@ -213,7 +215,6 @@ int main(){
 	addLast("Element 6");
 	addLast("Element 7");
 	addLast("Element 8");
-	printf("%s\n", temp->name);
 	display(&list);
 	return 0;
 }

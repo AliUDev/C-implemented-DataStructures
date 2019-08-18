@@ -23,6 +23,10 @@ void initList(struct List *list) { //initializes linked list
 	list->size = 0;
 }
 
+unsigned int emptyList(struct List *list) {
+	return list->head == NULL;
+}
+
 void addFirst(struct List *list, const char *str) {
 	struct Node *newNode;
 	newNode = (struct Node *)malloc(sizeof(struct Node)); //reserve memory on the heap

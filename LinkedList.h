@@ -16,6 +16,7 @@ void initList(struct List *list);
 void addFirst(struct List *list, const char *str);
 void addLast(struct List *list, const char *str);
 void displayList(struct List *mylist);
+unsigned int emptyList(struct List *myList);
 struct Node *popFirst(struct List *list);
 struct Node *popLast(struct List *list);
 struct Node *find(struct List *list, const char *name);

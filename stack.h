@@ -12,7 +12,7 @@ void initStack(struct Stack *stack);
 short empty(struct Stack *stack);
 unsigned int size(struct Stack *stack);
 void pushStack(struct Stack *stack, const char *arg);
-void popStack(struct Stack *stack);
+const char *popStack(struct Stack *stack);
 void displayStack(struct Stack *stack);
 
 

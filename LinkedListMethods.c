@@ -15,18 +15,7 @@ Working in the middle -> most trivial
 #include <stdio.h>	
 #include <string.h> // contents of our list is string
 #include <stdlib.h> // needed for malloc
-
-struct Node {
-	char name[20];
-	struct Node *next;
-};
-
-struct List {
-	struct Node *head;
-	struct Node *tail;
-	unsigned int size;
-};
-
+#include "LinkedList.h"
 
 void initList(struct List *list) { //initializes linked list
 	list->head = NULL;

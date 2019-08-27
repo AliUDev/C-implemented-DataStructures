@@ -16,7 +16,7 @@ struct Node *createNode(int data){
 	return newNode;
 }
 
-void addNode(struct Tree* tree, struct Node **root, int data){ //pass in the root of the tree
+void addNode(struct Tree* tree, struct Node **root, int data){ //use double pointer to use existing address passed in
 	if(*root == NULL){
 		*root = createNode(data);
 		tree->numOfNodes++;
@@ -76,4 +76,26 @@ void calcDepth(struct Tree *tree){
 		tree->depth = 0;
 	else
 		tree->depth = (int) (log(tree->numOfNodes) / log(2)) + 1;
+}
+
+void printTree(struct Tree *tree){ //Work in progress, will use a queue
+	struct Node *temp;
+	unsigned int height = tree->depth;
+	if(tree->root == NULL)
+		printf("The tree is empty\n");
+	else{
+		printf("The number of nodes are: %d\n", tree->numOfNodes);
+		printf("The depth of my tree is: %d\n", tree->depth);
+		struct Node *temp = tree->root;
+		for(int i = 0; i < height; i++){
+			for(int j = 0; j < pow(2.0, i); j++){
+				printf("%d", temp->data);
+			}
+			printf("\n");
+		}
+	}
+}
+
+void destroyTree(struct Tree *tree){
+
 }

@@ -1,11 +1,15 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include "LinkedList.h"
+
 
 int main() {
-	int a = 10;
-	int *b = &a;
-	int **c = &b;
-	printf("a = %d, b = %d, c = %d\n", a, b, c);
-	printf("a = %p, b = %p, c = %p", a, b, c);
-	getchar();
+	struct List *list = (struct List*)malloc(sizeof(struct List));
+	initList(list);
+	addFirst(list, "Ali");
+	displayList(list);
+	destroyList(list);
+	free(list);
+	
 	return 0;
 }

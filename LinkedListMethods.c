@@ -17,6 +17,8 @@ Working in the middle -> most trivial
 #include <stdlib.h> // needed for malloc
 #include "LinkedList.h"
 
+
+
 void initList(struct List *list) { //initializes linked list
 	list->head = NULL;
 	list->tail = NULL;

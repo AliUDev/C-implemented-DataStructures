@@ -1,10 +1,11 @@
-#include "stack.h"
-#include "LinkedList.h"
+#include <stdio.h>
 
 int main() {
-	struct Stack stack;
-	const char *name;
-	initStack(&stack);
-	displayStack(&stack);
+	int a = 10;
+	int *b = &a;
+	int **c = &b;
+	printf("a = %d, b = %d, c = %d\n", a, b, c);
+	printf("a = %p, b = %p, c = %p", a, b, c);
+	getchar();
 	return 0;
 }

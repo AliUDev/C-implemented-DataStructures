@@ -52,17 +52,28 @@ void postOrder(struct Node *root){
 	}
 }
 
+struct Node *searchBtree(struct Tree *tree, struct Node *root, int key){
+	struct Node *retVal;
+
+	if(tree->numOfNodes != 0){
+		if(key == root->data)
+			retVal = root;
+		else{
+			if(key < root->data)
+				retVal = searchBtree(tree, root->left, key);
+			else
+				retVal = searchBtree(tree, root->right, key);
+		}
+	}else
+		retVal = NULL;
+	
+	return retVal;
+}
+
+
 void calcDepth(struct Tree *tree){
 	if(tree->root == NULL)
 		tree->depth = 0;
 	else
 		tree->depth = (int) (log(tree->numOfNodes) / log(2)) + 1;
-}
-
-void bubbleUp(struct Node *node){
-
-}
-
-void printTree(struct Tree *tree){
-
 }

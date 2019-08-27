@@ -20,11 +20,9 @@ void addNode(struct Node **root, int data){ //pass in the root of the tree
 		*root = createNode(data);
 	else{
 		if(data < (*root)->data){
-			root = &(*root)->left;
-			addNode(root, data);
+			addNode(&(*root)->left, data);
 		}else{
-			root = &(*root)->right;
-			addNode(root, data);
+			addNode(&(*root)->right, data);
 		}
 	}
 }

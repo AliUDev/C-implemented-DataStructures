@@ -1,6 +1,7 @@
 #include "BST.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 
 void initTree(struct Tree *tree){
 	tree->depth = 0;
@@ -15,14 +16,16 @@ struct Node *createNode(int data){
 	return newNode;
 }
 
-void addNode(struct Node **root, int data){ //pass in the root of the tree
-	if(*root == NULL)
+void addNode(struct Tree* tree, struct Node **root, int data){ //pass in the root of the tree
+	if(*root == NULL){
 		*root = createNode(data);
-	else{
+		tree->numOfNodes++;
+		calcDepth(tree);
+	}else{
 		if(data < (*root)->data){
-			addNode(&(*root)->left, data);
+			addNode(tree, &(*root)->left, data);
 		}else{
-			addNode(&(*root)->right, data);
+			addNode(tree, &(*root)->right, data);
 		}
 	}
 }
@@ -39,7 +42,7 @@ void preOrder(struct Node *root){
 		printf("%d\n", root->data);
 		inOrder(root->left);
 		inOrder(root->right);
-		}
+	}
 }
 void postOrder(struct Node *root){
 	if(root != NULL){
@@ -49,10 +52,17 @@ void postOrder(struct Node *root){
 	}
 }
 
+void calcDepth(struct Tree *tree){
+	if(tree->root == NULL)
+		tree->depth = 0;
+	else
+		tree->depth = (int) (log(tree->numOfNodes) / log(2)) + 1;
+}
+
 void bubbleUp(struct Node *node){
 
 }
 
-void printTree(struct maxHeap *tree){
+void printTree(struct Tree *tree){
 
 }

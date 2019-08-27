@@ -10,7 +10,7 @@
             "-o",
             "main",
             "LinkedListMethods.c",
-            "bstMethods.c",
+            "queueMethods.c",
             "main.c"
         ],
         "group": {

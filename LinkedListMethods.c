@@ -17,8 +17,6 @@ Working in the middle -> most trivial
 #include <stdlib.h> // needed for malloc
 #include "LinkedList.h"
 
-
-
 void initList(struct List *list) { //initializes linked list
 	list->head = NULL;
 	list->tail = NULL;
@@ -183,13 +181,22 @@ struct Node *pop(struct List *list, const char *name) { // pop by value
 	return retVal;
 }
 
-void displayList(struct List *mylist) {
+void displayList(struct List *list) {
 	struct Node *temp;
-	temp = mylist->head;
+	temp = list->head;
 
 	while (temp != NULL) {
 		printf("%s\n", temp->name);
 		temp = temp->next;
+	}
+}
+
+void destroyList(struct List *list){
+	printf("Destroying List..!");
+	
+	while(list->head != NULL){
+		free(list->head);
+		list->head = list->head->next;
 	}
 }
 

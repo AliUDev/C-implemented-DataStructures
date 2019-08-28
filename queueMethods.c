@@ -2,10 +2,14 @@
 #include <stdio.h>
 #include "queue.h"
 
+/*
+LINKED LIST METHODS UNDER THE HOOD FOR THE QUEUE IMPLEMENTATION
+*/
 void initList(struct List *list){
     list->head = NULL;
     list->size = 0;
 }
+
 void insertStart(struct List *list, int x){
     struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
 
@@ -18,43 +22,50 @@ void insertStart(struct List *list, int x){
         newNode->data = x;
         list->head = newNode;
     }
-
     list->size++;
 }
 
 int popFirst(struct List *list){
     int retVal;
+
     struct Node *temp = list->head;
+
     if(list->head != NULL){
         retVal = temp->data;
         list->head = list->head->next;
         free(temp);
-    }else{
-        retVal = 999;
-    }
+    }else
+        retVal = 9999;
     return retVal;
 }
 
 void displayList(struct List *list){
     struct Node *temp = list->head;
-    while(temp != NULL){
-        printf("%d\n", temp->data);
-        temp = temp->next;
+    
+    if(list->head != NULL){
+        while(temp != NULL){
+            printf("%d\n", temp->data);
+            temp = temp->next;
+        }
     }
 }
 
-void destroyList(struct List *list){
-    struct Node *temp = list->head;
+void destroyList(struct List *list, struct Node **head){
+    struct Node* curr = *head;
+    struct Node* next;
 
-    printf("Destroying list...");
-    while(list->head != NULL){
-        temp = list->head;
-        list->head = list->head->next;
-        free(temp);
+    while(curr != NULL){
+        next = curr->next;
+        free(curr);
+        curr = next;
     }
+    list->head = NULL;
+    list->size = 0;
 }
 
-
+/*
+QUEUE METHODS
+*/
 
 void initQ(struct Queue *q){
     q->storage = (struct List*)malloc(sizeof(struct List));
@@ -98,6 +109,12 @@ int peekQ(struct Queue *q){
     }
     
     return retVal;
+}
+
+void freeQueue(struct Queue *q){
+    printf("Freeing memory used by linked-list under this Queue\n");
+    destroyList(q->storage, &q->storage->head);
+    q->size = 0;
 }
 
 unsigned int getSize(struct Queue *q){

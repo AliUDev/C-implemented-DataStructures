@@ -23,7 +23,7 @@ struct List {
 void initList(struct List *list);
 void insertStart(struct List *list, int x);
 int popFirst(struct List *list);
-void destroyList(struct List *list);
+void destroyList(struct List *list, struct Node **head);
 
 /*Queue Structure & Methods*/
 
@@ -39,5 +39,7 @@ int peekQ(struct Queue *q);
 void displayQ(struct Queue *q);
 unsigned int getSize(struct Queue *q);
 unsigned int isEmpty(struct Queue *q);
+void freeQueue(struct Queue *q);
+
 
 #endif

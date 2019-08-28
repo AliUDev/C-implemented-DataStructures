@@ -13,5 +13,6 @@ int main() {
 	insert(&q, 1000);
 	insert(&q, 11111);
 	displayQ(&q);
+	freeQueue(&q);
 	return 0;
 }

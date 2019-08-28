@@ -8,6 +8,7 @@ struct Node {
 	int data;
 	struct Node *left, *right;
 };
+
 #endif
 
 struct Tree {

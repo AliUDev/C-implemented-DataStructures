@@ -8,11 +8,13 @@ created for level order traversal of my binary tree
 
 /*LINKED LIST STRUCTURE FOR QUEUE IMPLEMENTATION & Methods */
 
+#ifndef NODE_DEF
+#define NODE_DEF
 struct Node{
     int data;
     struct Node *next;
 };
-
+#endif
 struct List {
 	int size;
     struct Node *head;

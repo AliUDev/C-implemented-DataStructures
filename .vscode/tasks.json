@@ -10,6 +10,7 @@
             "-o",
             "main",
             "queueMethods.c",
+            "BSTMethods.c",
             "main.c"
         ],
         "group": {

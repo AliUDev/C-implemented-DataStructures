@@ -28,7 +28,7 @@ void destroyList(struct List *list);
 /*Queue Structure & Methods*/
 
 struct Queue {
-	struct List storage;
+	struct List *storage;
 	unsigned int size;
 };
 
@@ -36,6 +36,7 @@ void initQ(struct Queue *q);
 void insert(struct Queue *q, int x);
 int popQ(struct Queue *q);
 int peekQ(struct Queue *q);
+void displayQ(struct Queue *q);
 unsigned int getSize(struct Queue *q);
 unsigned int isEmpty(struct Queue *q);
 

@@ -9,7 +9,6 @@
             "-g",
             "-o",
             "main",
-            "LinkedListMethods.c",
             "queueMethods.c",
             "main.c"
         ],

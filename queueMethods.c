@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "queue.h"
+
 void initList(struct List *list){
     list->head = NULL;
     list->size = 0;
@@ -9,9 +11,11 @@ void insertStart(struct List *list, int x){
 
     if(list->head == NULL){
         list->head = newNode;
+        list->head->next = NULL;
         list->head->data = x;
     }else{
         newNode->next = list->head;
+        newNode->data = x;
         list->head = newNode;
     }
 
@@ -21,12 +25,22 @@ void insertStart(struct List *list, int x){
 int popFirst(struct List *list){
     int retVal;
     struct Node *temp = list->head;
-
-    retVal = temp->data;
-    list->head = list->head->next;
-
-    free(temp);
+    if(list->head != NULL){
+        retVal = temp->data;
+        list->head = list->head->next;
+        free(temp);
+    }else{
+        retVal = 999;
+    }
     return retVal;
+}
+
+void displayList(struct List *list){
+    struct Node *temp = list->head;
+    while(temp != NULL){
+        printf("%d\n", temp->data);
+        temp = temp->next;
+    }
 }
 
 void destroyList(struct List *list){
@@ -40,13 +54,56 @@ void destroyList(struct List *list){
     }
 }
 
+
+
 void initQ(struct Queue *q){
     q->storage = (struct List*)malloc(sizeof(struct List));
     initList(q->storage);
     q->size = 0;
 }
-void insert(struct Queue *q, int x);
-int popQ(struct Queue *q);
-int peekQ(struct Queue *q);
-unsigned int getSize(struct Queue *q);
-unsigned int isEmpty(struct Queue *q);
+
+void insert(struct Queue *q, int x){
+    insertStart(q->storage, x);
+    q->size++;
+}
+
+int popQ(struct Queue *q){ //returns 999999999 if pop is impossible else pops first in
+
+    int retVal;
+
+    if(q->size > 0){
+        retVal = popFirst(q->storage);
+        q->size--;
+    }else{
+        printf("Error!! Cannot pop from empty Queue.\n");
+        retVal = 9999;
+    }
+    
+    return retVal;
+}
+
+void displayQ(struct Queue *q){
+    printf("This Queue has %d elements in it.\n", q->size);
+    displayList(q->storage);
+}
+
+int peekQ(struct Queue *q){
+    int retVal;
+    
+    if(q->size > 0)
+        retVal = q->storage->head->data;
+    else{
+        printf("Queue is empty!\n");
+        retVal = 9999;
+    }
+    
+    return retVal;
+}
+
+unsigned int getSize(struct Queue *q){
+    return q->size;
+}
+
+unsigned int isEmpty(struct Queue *q){
+    return q->storage->head == NULL;
+}

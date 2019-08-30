@@ -10,14 +10,14 @@ created for level order traversal of my binary tree
 
 #ifndef NODE_DEF
 #define NODE_DEF
-struct Node{
+typedef struct node_l{
     int data;
-    struct Node *next;
-};
+    node_l *next;
+}node_l;
 #endif
 struct List {
 	int size;
-    struct Node *head;
+    node_l *head;
 };
 
 /*Only methods necessary for Queue will be coded*/
@@ -25,7 +25,7 @@ struct List {
 void initList(struct List *list);
 void insertStart(struct List *list, int x);
 int popFirst(struct List *list);
-void destroyList(struct List *list, struct Node **head);
+void destroyList(struct List *list, node_l **head);
 
 /*Queue Structure & Methods*/
 

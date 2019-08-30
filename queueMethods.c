@@ -11,7 +11,7 @@ void initList(struct List *list){
 }
 
 void insertStart(struct List *list, int x){
-    struct Node *newNode = (struct Node*)malloc(sizeof(struct Node));
+    node_l *newNode = (node_l*)malloc(sizeof(node_l));
 
     if(list->head == NULL){
         list->head = newNode;
@@ -28,7 +28,7 @@ void insertStart(struct List *list, int x){
 int popFirst(struct List *list){
     int retVal;
 
-    struct Node *temp = list->head;
+    node_l *temp = list->head;
 
     if(list->head != NULL){
         retVal = temp->data;
@@ -40,7 +40,7 @@ int popFirst(struct List *list){
 }
 
 void displayList(struct List *list){
-    struct Node *temp = list->head;
+    node_l *temp = list->head;
     
     if(list->head != NULL){
         while(temp != NULL){
@@ -50,9 +50,9 @@ void displayList(struct List *list){
     }
 }
 
-void destroyList(struct List *list, struct Node **head){
-    struct Node* curr = *head;
-    struct Node* next;
+void destroyList(struct List *list, node_l **head){
+    node_l* curr = *head;
+    node_l* next;
 
     while(curr != NULL){
         next = curr->next;

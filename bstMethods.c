@@ -1,7 +1,8 @@
-#include "BST.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include "BST.h"
+#include "queue.h"
 
 void initTree(struct Tree *tree){
 	tree->depth = 0;
@@ -9,14 +10,14 @@ void initTree(struct Tree *tree){
 	tree->root = NULL;
 }
 
-struct Node *createNode(int data){
-	struct Node *newNode = (struct Node*)malloc(sizeof(struct Node)); // allocate mem 
+node_T *createNode(int data){
+	node_T *newNode = (node_T*)malloc(sizeof(node_T)); // allocate mem 
 	newNode->data = data;
 	newNode->left = newNode->right = NULL;
 	return newNode;
 }
 
-void addNode(struct Tree* tree, struct Node **root, int data){ //use double pointer to use existing address passed in
+void addNode(struct Tree* tree, node_T **root, int data){ //use double pointer to use existing address passed in
 	if(*root == NULL){
 		*root = createNode(data);
 		tree->numOfNodes++;
@@ -30,21 +31,22 @@ void addNode(struct Tree* tree, struct Node **root, int data){ //use double poin
 	}
 }
 
-void inOrder(struct Node *root){
+void inOrder(node_T *root){
 	if(root != NULL){
 		inOrder(root->left);
 		printf("%d\n", root->data);
 		inOrder(root->right);
 	}
 }
-void preOrder(struct Node *root){
+void preOrder(node_T *root){
 	if(root != NULL){
 		printf("%d\n", root->data);
 		inOrder(root->left);
 		inOrder(root->right);
 	}
 }
-void postOrder(struct Node *root){
+
+void postOrder(node_T *root){
 	if(root != NULL){
 		inOrder(root->left);
 		inOrder(root->right);
@@ -52,8 +54,35 @@ void postOrder(struct Node *root){
 	}
 }
 
-struct Node *searchBtree(struct Tree *tree, struct Node *root, int key){
-	struct Node *retVal;
+void levelOrder(struct Tree *tree) 
+{ 
+    struct Queue *queue = (struct Queue *)malloc(sizeof(struct Queue));
+	node_T *temp = tree->root;
+    if (temp != NULL){
+		initQ(queue);
+		insert(queue, temp->data);
+	
+		while (!isEmpty(queue)) 
+		{ 
+			// Print front of queue and remove it from queue 
+			printf("%d\n", popQ(queue));
+			
+			if (temp->left != NULL){
+				insert(queue, temp->left->data);
+				temp = temp->left;
+			}
+	
+			if (temp->right != NULL) {
+				insert(queue, temp->right->data);
+				temp = temp->right;
+			}
+		} 
+	}
+	free(queue);
+} 
+
+node_T *searchBtree(struct Tree *tree, node_T *root, int key){
+	node_T *retVal;
 
 	if(tree->numOfNodes != 0){
 		if(key == root->data)
@@ -79,22 +108,9 @@ void calcDepth(struct Tree *tree){
 }
 
 void printTree(struct Tree *tree){ //Work in progress, will use a queue
-	struct Node *temp;
-	unsigned int height = tree->depth;
-	if(tree->root == NULL)
-		printf("The tree is empty\n");
-	else{
-		printf("The number of nodes are: %d\n", tree->numOfNodes);
-		printf("The depth of my tree is: %d\n", tree->depth);
-		struct Node *temp = tree->root;
-		for(int i = 0; i < height; i++){
-			for(int j = 0; j < pow(2.0, i); j++){
-				printf("%d", temp->data);
-			}
-			printf("\n");
-		}
-	}
+	
 }
+
 
 void destroyTree(struct Tree *tree){
 

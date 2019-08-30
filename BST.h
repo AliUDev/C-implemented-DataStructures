@@ -1,25 +1,25 @@
 #ifndef BinaryTree_H_INCLUDED
 #define BinaryTree_H_INCLUDED
 
-typedef struct node_T {
+typedef struct node_t {
 	int data;
-	node_T *left, *right;
-}node_T;
+	node_t *left, *right;
+}node_t;
 
 struct Tree {
-	node_T *root;
+	node_t *root;
 	unsigned int numOfNodes, depth;
 };
 
 void initTree(struct Tree *tree);
 void calcDepth(struct Tree *tree);
-node_T *createNode(int data);
-void addNode(struct Tree* tree, node_T **root, int data); 
-void preOrder(node_T *root);
-void postOrder(node_T *root);
-void inOrder(node_T *root);
+node_t *createNode(int data);
+void addNode(struct Tree* tree, node_t **root, int data); 
+void preOrder(node_t *root);
+void postOrder(node_t *root);
+void inOrder(node_t *root);
 void levelOrder(struct Tree *tree);
-node_T *searchBtree(struct Tree *tree, node_T *root, int key);
+node_t *searchBtree(struct Tree *tree, node_t *root, int key);
 void printTree(struct Tree *tree);
 void destroyTree(struct Tree *tree);
 

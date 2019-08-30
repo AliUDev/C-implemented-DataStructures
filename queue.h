@@ -1,47 +1,24 @@
 #ifndef Queue_H_INCLUDED
 #define Queue_H_INCLUDED
+#include "BST.h"
 
 /*
-This is a Queue implementation using a linked list specifically
+This is a Queue implementation using an array. This will be a queue storing Nodes of type node_t specifically
 created for level order traversal of my binary tree 
 */
 
-/*LINKED LIST STRUCTURE FOR QUEUE IMPLEMENTATION & Methods */
+typedef struct Queue{
+    node_t *storage; // dynamically allocated array of node_t nodes
+    node_t *front, *back;
+    unsigned int size;
+    unsigned int empty;
+}queue;
 
-#ifndef NODE_DEF
-#define NODE_DEF
-typedef struct node_l{
-    int data;
-    node_l *next;
-}node_l;
-#endif
-struct List {
-	int size;
-    node_l *head;
-};
-
-/*Only methods necessary for Queue will be coded*/
-
-void initList(struct List *list);
-void insertStart(struct List *list, int x);
-int popFirst(struct List *list);
-void destroyList(struct List *list, node_l **head);
-
-/*Queue Structure & Methods*/
-
-struct Queue {
-	struct List *storage;
-	unsigned int size;
-};
-
-void initQ(struct Queue *q);
-void insert(struct Queue *q, int x);
-int popQ(struct Queue *q);
-int peekQ(struct Queue *q);
-void displayQ(struct Queue *q);
-unsigned int getSize(struct Queue *q);
-unsigned int isEmpty(struct Queue *q);
-void freeQueue(struct Queue *q);
-
+void init_q(queue *q, unsigned int size);
+void insert_q(queue *q, node_t *node);
+node_t pop_q(queue *q);
+node_t *peek_q(queue *q);
+unsigned int is_empty_q(queue *q);
+void destroy_q(queue *q);
 
 #endif

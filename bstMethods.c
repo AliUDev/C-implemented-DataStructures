@@ -10,14 +10,14 @@ void initTree(struct Tree *tree){
 	tree->root = NULL;
 }
 
-node_T *createNode(int data){
-	node_T *newNode = (node_T*)malloc(sizeof(node_T)); // allocate mem 
+node_t *createNode(int data){
+	node_t *newNode = (node_t*)malloc(sizeof(node_t)); // allocate mem 
 	newNode->data = data;
 	newNode->left = newNode->right = NULL;
 	return newNode;
 }
 
-void addNode(struct Tree* tree, node_T **root, int data){ //use double pointer to use existing address passed in
+void addNode(struct Tree* tree, node_t **root, int data){ //use double pointer to use existing address passed in
 	if(*root == NULL){
 		*root = createNode(data);
 		tree->numOfNodes++;
@@ -31,14 +31,14 @@ void addNode(struct Tree* tree, node_T **root, int data){ //use double pointer t
 	}
 }
 
-void inOrder(node_T *root){
+void inOrder(node_t *root){
 	if(root != NULL){
 		inOrder(root->left);
 		printf("%d\n", root->data);
 		inOrder(root->right);
 	}
 }
-void preOrder(node_T *root){
+void preOrder(node_t *root){
 	if(root != NULL){
 		printf("%d\n", root->data);
 		inOrder(root->left);
@@ -46,7 +46,7 @@ void preOrder(node_T *root){
 	}
 }
 
-void postOrder(node_T *root){
+void postOrder(node_t *root){
 	if(root != NULL){
 		inOrder(root->left);
 		inOrder(root->right);
@@ -56,33 +56,11 @@ void postOrder(node_T *root){
 
 void levelOrder(struct Tree *tree) 
 { 
-    struct Queue *queue = (struct Queue *)malloc(sizeof(struct Queue));
-	node_T *temp = tree->root;
-    if (temp != NULL){
-		initQ(queue);
-		insert(queue, temp->data);
-	
-		while (!isEmpty(queue)) 
-		{ 
-			// Print front of queue and remove it from queue 
-			printf("%d\n", popQ(queue));
-			
-			if (temp->left != NULL){
-				insert(queue, temp->left->data);
-				temp = temp->left;
-			}
-	
-			if (temp->right != NULL) {
-				insert(queue, temp->right->data);
-				temp = temp->right;
-			}
-		} 
-	}
-	free(queue);
+    
 } 
 
-node_T *searchBtree(struct Tree *tree, node_T *root, int key){
-	node_T *retVal;
+node_t *searchBtree(struct Tree *tree, node_t *root, int key){
+	node_t *retVal;
 
 	if(tree->numOfNodes != 0){
 		if(key == root->data)

@@ -2,125 +2,47 @@
 #include <stdio.h>
 #include "queue.h"
 
-/*
-LINKED LIST METHODS UNDER THE HOOD FOR THE QUEUE IMPLEMENTATION
-*/
-void initList(struct List *list){
-    list->head = NULL;
-    list->size = 0;
-}
 
-void insertStart(struct List *list, int x){
-    node_l *newNode = (node_l*)malloc(sizeof(node_l));
-
-    if(list->head == NULL){
-        list->head = newNode;
-        list->head->next = NULL;
-        list->head->data = x;
-    }else{
-        newNode->next = list->head;
-        newNode->data = x;
-        list->head = newNode;
-    }
-    list->size++;
-}
-
-int popFirst(struct List *list){
-    int retVal;
-
-    node_l *temp = list->head;
-
-    if(list->head != NULL){
-        retVal = temp->data;
-        list->head = list->head->next;
-        free(temp);
-    }else
-        retVal = 9999;
-    return retVal;
-}
-
-void displayList(struct List *list){
-    node_l *temp = list->head;
-    
-    if(list->head != NULL){
-        while(temp != NULL){
-            printf("%d\n", temp->data);
-            temp = temp->next;
-        }
-    }
-}
-
-void destroyList(struct List *list, node_l **head){
-    node_l* curr = *head;
-    node_l* next;
-
-    while(curr != NULL){
-        next = curr->next;
-        free(curr);
-        curr = next;
-    }
-    list->head = NULL;
-    list->size = 0;
-}
-
-/*
-QUEUE METHODS
-*/
-
-void initQ(struct Queue *q){
-    q->storage = (struct List*)malloc(sizeof(struct List));
-    initList(q->storage);
+void init_q(queue *q, unsigned int size){
+    q->storage = (node_t *)calloc(size, sizeof(node_t)); //array of size
+    q->front = &q->storage[0];
+    q->back = &q->storage[0];
     q->size = 0;
+    q->empty = 1;
 }
 
-void insert(struct Queue *q, int x){
-    insertStart(q->storage, x);
+void insert_q(queue *q, node_t *node){
+    if(q->empty == 1){
+        q->front = node;
+        q->back = node;
+        q->storage = node;
+        q->empty = 0;
+    }else{
+        q->back = node;
+        q->storage[q->size] = *node;
+    }
     q->size++;
 }
 
-int popQ(struct Queue *q){ //returns 999999999 if pop is impossible else pops first in
-
-    int retVal;
+node_t pop_q(queue *q){
+    int i;
+    node_t retVal;
 
     if(q->size > 0){
-        retVal = popFirst(q->storage);
+        q->front = (q->storage + 1);
+        retVal = *q->front;
+        //shift array
+        for(i = 0; i < q->size; i++){
+            q->storage[i] = q->storage[i+1];
+        }
+
+        q->front = q->storage;
+        q->back = (q->storage + q->size);
         q->size--;
-    }else{
-        printf("Error!! Cannot pop from empty Queue.\n");
-        retVal = 9999;
-    }
-    
+    }else
+        printf("Cannot pop from empty queue");
+
     return retVal;
 }
-
-void displayQ(struct Queue *q){
-    printf("This Queue has %d elements in it.\n", q->size);
-    displayList(q->storage);
-}
-
-int peekQ(struct Queue *q){
-    int retVal;
-    
-    if(q->size > 0)
-        retVal = q->storage->head->data;
-    else{
-        printf("Queue is empty!\n");
-        retVal = 9999;
-    }
-    
-    return retVal;
-}
-
-void freeQueue(struct Queue *q){
-    printf("Freeing memory used by linked-list under this Queue\n");
-    destroyList(q->storage, &q->storage->head);
-    q->size = 0;
-}
-
-unsigned int getSize(struct Queue *q){
-    return q->size;
-}
-
-unsigned int isEmpty(struct Queue *q){
-    return q->storage->head == NULL;
-}
+node_t *peek_q(queue *q);
+void destroy_q(queue *q);

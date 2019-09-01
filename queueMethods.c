@@ -13,21 +13,60 @@ created for my bianry search tree implementation. It dynamically allocated an ar
 
 */
 
+void init_qlist(q_list *list){
+    list->head = list->tail = NULL;
+    list->size = 0;
+}
+
+node_q *create_nodeq(node_t *node){
+    node_q *qNode = (node_q*)malloc(sizeof(node_q));
+    qNode->node = node;
+    qNode->next = NULL;
+    return qNode;
+}
+
+void insert_head_qlist(q_list *list, node_t *node){
+    if(list->head == NULL)
+        list->head = list->tail = create_nodeq(node);
+    else{
+        node_q *temp = create_nodeq(node);
+        temp->next = list->head;
+        list->head = temp;
+    }
+    list->size++;
+}
+
+node_t *remove_head_qlist(q_list *list){
+    node_t *retVal;
+
+    if(list->head == NULL)
+        retVal = NULL;
+    else if(list->head == list->tail){
+        retVal = list->head;
+        list->head = list->tail = NULL;
+    }else{
+        
+    }
+}
+node_q *get_qlist_head(q_list *list);
+void destroy_qlist(q_list *list);
+
+
 void init_q(queue *q, unsigned int size){
-    q->storage = (node_t *)calloc(size, sizeof(node_t)); //array of size
-    q->front = q->back =  q->storage;
+    q->storage = (q_list *)malloc(sizeof(q_list));
+    q->front = q->back =  q->storage->head;
     q->size = 0;
     q->empty = 1;
 }
 
 void insert_q(queue *q, node_t *node){
    if(q->empty){
-       q->storage[0] = *node;
-       q->front = q->back = q->storage;
+       q->storage = &node;
+       q->front = q->back = *q->storage;
        q->empty = 0;
    }else{
-       q->storage[q->size] = *node;
-       q->back = &q->storage[q->size - 1];
+       q->storage[q->size] = node;
+       q->back = q->storage[q->size];
    }
    q->size++; 
 }
@@ -37,7 +76,7 @@ node_t *pop_q(queue *q){
 
     if(q->size == 1){
         retVal = q->front;
-        q->front = q->back = q->storage;
+        q->front = q->back = *q->storage;
         q->size--;
         q->empty = 1;
     }else if(!q->empty){

@@ -59,7 +59,7 @@ void levelOrder(struct Tree *tree)
     queue *q = (queue *)malloc(sizeof(queue));
 	node_t *temp;
 
-	init_q(q, tree->numOfNodes);
+	init_q(q);
 
 	if(tree->root != NULL){
 		insert_q(q, tree->root);

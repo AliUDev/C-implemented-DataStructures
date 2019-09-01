@@ -1,9 +1,9 @@
 #ifndef BinaryTree_H_INCLUDED
 #define BinaryTree_H_INCLUDED
 
-typedef struct node_t {
+typedef struct tree_node {
 	int data;
-	node_t *left, *right;
+	struct tree_node *left, *right;
 }node_t;
 
 struct Tree {

@@ -13,6 +13,12 @@ created for my bianry search tree implementation. It dynamically allocated an ar
 
 */
 
+/*********************************************************
+ * Linked list methods under the hood of the queue
+ * 
+ * *******************************************************
+*/
+
 void init_qlist(q_list *list){
     list->head = list->tail = NULL;
     list->size = 0;
@@ -36,67 +42,75 @@ void insert_head_qlist(q_list *list, node_t *node){
     list->size++;
 }
 
-node_t *remove_head_qlist(q_list *list){
-    node_t *retVal;
-
+void insert_tail_qlist(q_list *list, node_t *node){
     if(list->head == NULL)
-        retVal = NULL;
+        insert_head_qlist(list, node);
+    else{
+        node_q *temp = create_nodeq(node);
+        list->tail->next = temp;
+        list->tail = temp;
+    }
+    list->size++;
+}
+
+void pop_head_qlist(q_list *list){
+    node_q *temp;
+    if(list->head == NULL)
+        printf("Cannot pop from an empty list.");
     else if(list->head == list->tail){
-        retVal = list->head;
+        free(list->head);
         list->head = list->tail = NULL;
+        list->size--;
     }else{
-        
+        temp = list->head->next;
+        free(list->head);
+        list->head = temp;
+        list->size--;
     }
 }
-node_q *get_qlist_head(q_list *list);
-void destroy_qlist(q_list *list);
 
+node_q *get_qlist_head(q_list *list){
+    return list->head;
+}
+void destroy_qlist(q_list *list){
+    node_q *temp = list->head;
+    while(temp != NULL){
+        free(temp);
+        temp = list->head->next;
+    }
+}
 
-void init_q(queue *q, unsigned int size){
+/****************************************************************************//*
+                                    Queue methods*/
+/****************************************************************************/
+
+void init_q(queue *q){
     q->storage = (q_list *)malloc(sizeof(q_list));
-    q->front = q->back =  q->storage->head;
     q->size = 0;
     q->empty = 1;
 }
 
 void insert_q(queue *q, node_t *node){
-   if(q->empty){
-       q->storage = &node;
-       q->front = q->back = *q->storage;
-       q->empty = 0;
-   }else{
-       q->storage[q->size] = node;
-       q->back = q->storage[q->size];
-   }
-   q->size++; 
-}
-
-node_t *pop_q(queue *q){
-    node_t *retVal;
-
-    if(q->size == 1){
-        retVal = q->front;
-        q->front = q->back = *q->storage;
-        q->size--;
-        q->empty = 1;
-    }else if(!q->empty){
-        retVal = q->front;
-        q->front += 1;
-        q->size--;
+    if(q->empty){
+        insert_head_qlist(q->storage, node);
+        q->empty = 0;
     }else{
-        printf("You cannot pop from an empty Queue.");
-        retVal = NULL;
+        insert_tail_qlist(q->storage, node);
     }
-
-    return retVal;
+    q->size++;
 }
 
-void print_q(queue *q){
-    printf("First in queue: %d\n", q->front->data);
-    printf("Last in queue: %d\n", q->back->data);
+void pop_q(queue *q){
+    if(q->empty)
+        printf("Cannot pop from an empty queue");
+    else{
+        pop_head_qlist(q->storage);
+        q->size--;
+    }
 }
+
 node_t *peek_q(queue *q){
-    return q->front;
+    return q->storage->head->node;
 }
 
 void destroy_q(queue *q){

@@ -56,7 +56,30 @@ void postOrder(node_t *root){
 
 void levelOrder(struct Tree *tree) 
 { 
-    
+    queue *q = (queue *)malloc(sizeof(queue));
+	node_t *temp;
+
+	init_q(q, tree->numOfNodes);
+
+	if(tree->root != NULL){
+		insert_q(q, tree->root);
+		
+		while(!q->empty){
+
+			temp = peek_q(q);
+
+			printf("%d\n", temp->data);
+			pop_q(q);
+
+			if (temp->left != NULL) 
+				insert_q(q, temp->left); 
+	
+			if (temp->right != NULL) 
+				insert_q(q, temp->right);  
+		}
+	}
+
+	free(q);
 } 
 
 node_t *searchBtree(struct Tree *tree, node_t *root, int key){

@@ -16,9 +16,10 @@ typedef struct Queue{
 
 void init_q(queue *q, unsigned int size);
 void insert_q(queue *q, node_t *node);
-node_t pop_q(queue *q);
+node_t *pop_q(queue *q);
 node_t *peek_q(queue *q);
 unsigned int is_empty_q(queue *q);
+void print_q(queue *q);
 void destroy_q(queue *q);
 
 #endif

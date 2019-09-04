@@ -106,7 +106,11 @@ void pop_q(queue *q){
     else{
         pop_head_qlist(q->storage);
         q->size--;
+
+        
     }
+    
+    q->empty = q->size == 0;
 }
 
 node_t *peek_q(queue *q){

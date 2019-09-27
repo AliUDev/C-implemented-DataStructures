@@ -3,7 +3,7 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "C:\\Users\\Ali\\Documents\\GitHub\\C-implemented-DataStructures\\Include"
             ],
             "defines": [
                 "_DEBUG",

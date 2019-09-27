@@ -8,7 +8,8 @@
 		"files.associations": {
 			"iostream": "cpp",
 			"bst.h": "c",
-			"queue.h": "c"
+			"queue.h": "c",
+			"hashtable.h": "c"
 		}
 	}
 }

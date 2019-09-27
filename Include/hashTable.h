@@ -8,7 +8,7 @@
 */
 
 
-/*LINKED LIST*/
+/*under the hoood LINKED LIST*/
 
 typedef struct Node{
     const char *key;
@@ -29,13 +29,19 @@ void insertTail(linked_list *list, const char *key, int val);
 void printLinkedList(linked_list *list);
 void removeHead(linked_list *list);
 void removeTail(linked_list *list);
-node *peekTail(linked_list *list);
-node *peekHead(linked_list *list);
+const char *peekTailKey(linked_list *list);
+const int *peekTailVal(linked_list *list);
+const char *peekHeadKey(linked_list *list);
+const int *peekHeadVal(linked_list *list);
 
 
 /*HASH TABLE*/
 
-typedef struct Table hash_table;
+typedef struct Table{
+    linked_list *storage; // will be an array of linked lists
+    unsigned int size, empty; //size will be 10 elements by default
+    float percentFull;
+}hash_table;
 
 
 #endif

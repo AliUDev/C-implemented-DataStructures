@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "hashTable.h"
+#include "include/hashTable.h"
 
 int main() {
 	linked_list list;
@@ -10,6 +10,6 @@ int main() {
 	insertTail(&list, "Mehmood Umar", 16);
 	insertTail(&list, "Fatima Umar", 45);
 	removeTail(&list);
-	printLinkedList(&list);
+	//printLinkedList(&list);
 	return 0;
 }

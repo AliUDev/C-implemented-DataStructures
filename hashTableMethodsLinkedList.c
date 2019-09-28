@@ -1,18 +1,18 @@
-#include "include/hashTable.h"
-
+#include "include/hashTableLL.h"
+// helper methods to craete a node, set it's next pointer to null and assign the data
 node *createNode(const char *key, int val){
     node *newNode = (node*)malloc(sizeof(node));
     newNode->next = NULL;   //new node will not point to anything
     newNode->key = key;
     newNode->val = val;
 }
-
+// initialize our linked list
 void initLinkedList(linked_list *list){
     list->empty = 1; // flag list as empty
     list->head = list->tail = NULL;
     list->size = 0;
 }
-
+//inserts a value at head (front)
 void insertHead(linked_list *list, const char *key, int val){
     if(list->empty){
         list->head = list->tail = createNode(key, val);
@@ -24,7 +24,7 @@ void insertHead(linked_list *list, const char *key, int val){
     }
     list->size++;
 }
-
+//inserts a value at tail (end)
 void insertTail(linked_list *list, const char *key, int val){
     if(list->empty)
         insertHead(list, key, val);
@@ -34,7 +34,7 @@ void insertTail(linked_list *list, const char *key, int val){
     }
     list->size++;
 }
-
+//prints out our complete linked list with each nodes data
 void printLinkedList(linked_list *list){
     if(list->empty){
         printf("Empty");
@@ -48,7 +48,7 @@ void printLinkedList(linked_list *list){
         printf("]");
     }
 }
-
+//removes the element at the front 
 void removeHead(linked_list *list){
     if(list->empty)
         printf("Cannot remove from an empty list\n");
@@ -64,7 +64,7 @@ void removeHead(linked_list *list){
         list->size--;
     }
 }
-
+//removes element at the end of the list
 void removeTail(linked_list *list){
     if(list->empty)
         printf("Cannot remove from an empty list\n");
@@ -79,18 +79,19 @@ void removeTail(linked_list *list){
         list->tail = temp;
     }
 }
-
+// returns a pointer to the key as a string at the tail (end)
 const char *peekTailKey(linked_list *list){
     return list->tail->key;
 }
-
-const int *peekTailVal(linked_list *list){
+//returns the integer value stored at the tail 
+int peekTailVal(linked_list *list){
     return list->tail->val;
 }
+// returns a pointer to the key as a string at the head (front)
 const char *peekHeadKey(linked_list *list){
     return list->head->key;
 }
-
-const int *peekHeadVal(linked_list *list){
+//returns the integer value stored at the head
+int peekHeadVal(linked_list *list){
     return list->head->val;
 }
